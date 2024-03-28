@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail API Example</title>
+    <style>
+        .email-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            min-height: 400px; /* Altura mínima de la card */
+            width: 80%; /* Ancho de la card */
+            margin: auto; /* Centrar la card */
+        }
+
+        .email-sender {
+            font-weight: bold;
+        }
+
+        .email-subject {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .email-body {
+            font-size: 16px;
+            overflow-wrap: break-word; /* Permitir que el texto se ajuste automáticamente */
+        }
+
+        .email-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="authorize()">Iniciar sesión con Google</button>
+
+    <!-- Contenedor para los correos electrónicos -->
+    <table id="emails">
+        <thead>
+            <tr>
+                <th>Remitente</th>
+                <th>Asunto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se mostrarán los correos electrónicos -->
+        </tbody>
+    </table>
+
+    <!-- Contenedor para mostrar el contenido del correo electrónico -->
+    <div id="emailContent" style="display: none;">
+        <button onclick="showEmails()">Regresar</button>
+        <div class="email-container">
+            <div class="email-sender" id="emailSender"></div>
+            <div class="email-subject" id="emailSubject"></div>
+            <div class="email-body" id="emailBody"></div>
+            <div id="emailImages"></div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de la aplicación (obtenidos de la Consola de Desarrolladores de Google)
+        const CLIENT_ID = '263055704091-63rut015hv7fjbqpeprukmt5gti3bv6c.apps.googleusercontent.com';
+        const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"];
+
+        // Función para manejar el proceso de autorización
+        function authorize() {
+            gapi.auth2.getAuthInstance().signIn();
+        }
+
+        // Función de inicio, se ejecuta al cargar la página
+        function start() {
+            gapi.load('client:auth2', initClient);
+        }
+
+        // Inicialización del cliente de la API de Google
+        function initClient() {
+            gapi.client.init({
+                apiKey: 'TU_API_KEY',
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES
+            }).then(function () {
+                // Escucha los cambios de estado de la autenticación
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+                // Maneja el estado inicial de la autenticación
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+            });
+        }
+
+        // Maneja los cambios de estado de la autenticación
+        function updateSigninStatus(isSignedIn) {
+            if (isSignedIn) {
+                // Si el usuario está autenticado, realiza la solicitud para obtener correos electrónicos
+                listEmails();
+            } else {
+                // Si el usuario no está autenticado, muestra el botón de inicio de sesión
+                document.querySelector('button').style.display = 'block';
+            }
+        }
+
+        // Realiza la solicitud para obtener correos electrónicos
+        function listEmails() {
+            gapi.client.gmail.users.messages.list({
+                userId: 'me',
+                maxResults: 10 // Obtén solo los primeros 10 correos electrónicos
+            }).then(function(response) {
+                const messages = response.result.messages;
+                // Maneja los correos electrónicos obtenidos
+                if (messages && messages.length > 0) {
+                    messages.forEach(message => {
+                        // Por cada correo electrónico, obtén su contenido
+                        gapi.client.gmail.users.messages.get({
+                            userId: 'me',
+                            id: message.id
+                        }).then(function(response) {
+                            const email = response.result;
+                            // Obtén el remitente y el asunto del correo electrónico
+                            const sender = email.payload.headers.find(header => header.name === 'From').value;
+                            const subject = email.payload.headers.find(header => header.name === 'Subject').value;
+                            
+                            // Crea una fila en la tabla para mostrar el correo electrónico
+                            const tableRow = document.createElement('tr');
+                            tableRow.innerHTML = `<td>${sender}</td><td>${subject}</td>`;
+                            
+                            // Agrega un evento de clic a la fila para mostrar el contenido del correo
+                            tableRow.addEventListener('click', function() {
+                                showEmailContent(email);
+                            });
+
+                            // Agrega la fila a la tabla de correos electrónicos
+                            document.querySelector('#emails tbody').appendChild(tableRow);
+                        });
+                    });
+                } else {
+                    console.log('No se encontraron correos electrónicos.');
+                }
+            });
+        }
+
+        // Muestra el contenido del correo electrónico seleccionado
+        function showEmailContent(email) {
+            // Oculta la tabla de correos electrónicos
+            document.getElementById('emails').style.display = 'none';
+
+            // Muestra el contenido del correo electrónico
+            document.getElementById('emailSender').innerText = 'De: ' + email.payload.headers.find(header => header.name === 'From').value;
+            document.getElementById('emailSubject').innerText = 'Asunto: ' + email.payload.headers.find(header => header.name === 'Subject').value;
+
+            // Procesa el cuerpo del correo electrónico
+            function processEmailParts(parts) {
+                parts.forEach(part => {
+                    // Si el contenido es texto
+                    if (part.mimeType === 'text/plain' || part.mimeType === 'text/html') {
+                        // Decodifica el texto
+                        const decodedBody = atob(part.body.data.replace(/-/g, '+').replace(/_/g, '/'));
+                        // Muestra el texto en el cuerpo del correo
+                        document.getElementById('emailBody').innerHTML = decodedBody;
+                    }
+                    // Si el contenido es una imagen adjunta
+                    else if (part.filename && part.filename.length > 0) {
+                        const attachment = gapi.client.gmail.users.messages.attachments.get({
+                            userId: 'me',
+                            messageId: email.id,
+                            id: part.body.attachmentId
+                        });
+                        attachment.then(response => {
+                            const img = document.createElement('img');
+                            img.src
+                            = `data:${part.mimeType};base64,${response.result.data}`;
+                            img.classList.add('email-image');
+                            document.getElementById('emailImages').appendChild(img);
+                        });
+                    }
+                });
+            }
+
+            // Si el correo electrónico tiene partes
+            if (email.payload.parts) {
+                processEmailParts(email.payload.parts);
+            } else if (email.payload.body && email.payload.body.size > 0) {
+                processEmailParts([email.payload]);
+            }
+
+            // Muestra el contenedor del contenido del correo electrónico
+            document.getElementById('emailContent').style.display = 'block';
+        }
+
+        // Oculta el contenido del correo electrónico y muestra la lista de correos electrónicos cuando regresas
+        function showEmails() {
+            document.getElementById('emails').style.display = 'table';
+            document.getElementById('emailContent').style.display = 'none';
+            // Limpia el contenido del correo electrónico
+            document.getElementById('emailSender').innerText = '';
+            document.getElementById('emailSubject').innerText = '';
+            document.getElementById('emailBody').innerText = '';
+            document.getElementById('emailImages').innerHTML = '';
+        }
+
+        // Llama a la función de inicio cuando la página se carga
+        window.onload = start;
+    </script>
+    <!-- Incluye la biblioteca de la API de Google -->
+    <script src="https://apis.google.com/js/api.js"></script>
+</body>
+</html>
