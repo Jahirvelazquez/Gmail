@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Gmail | Carquin </title>
+    <link rel="stylesheet" href="gmail.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar-container">
+
+    <nav class="sidebar close">
+        <div class="logo-details">
+            <i class='bx'><img src="https://firebasestorage.googleapis.com/v0/b/correo-f7c0b.appspot.com/o/istockphoto-1283694295-612x612.jpg?alt=media&token=207f6732-a7a0-49c0-9435-0f9fc9434e86" alt="profileImg">
+            </i>
+            <span class="logo_name">Gmail Carquin</span>
+        </div>
+        <ul class="nav-links">
+            <li class="search-box">
+                <i class='bx bx-search icon'></i>
+                <input type="text" placeholder="Search..." onkeyup="filterEmailsBySearch()">
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Category</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-collection'></i>
+                        <span class="link_name">Category</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Category</a></li>
+                    <li><a href="#">HTML & CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">PHP & MySQL</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-book-alt'></i>
+                        <span class="link_name">Posts</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Posts</a></li>
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Login Form</a></li>
+                    <li><a href="#">Card Design</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="link_name">Analytics</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Analytics</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Chart</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Chart</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-plug'></i>
+                        <span class="link_name">Plugins</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Plugins</a></li>
+                    <li><a href="#">UI Face</a></li>
+                    <li><a href="#">Pigments</a></li>
+                    <li><a href="#">Box Icons</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-compass'></i>
+                    <span class="link_name">Explore</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Explore</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-history'></i>
+                    <span class="link_name">History</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">History</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="link_name">Setting</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Setting</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/correo-f7c0b.appspot.com/o/2.png?alt=media&token=94ab333a-03b7-440d-8661-349526be6294" alt="profileImg">
+                    </div>
+                    <div class="name-job">
+                        <div class="profile_name">CTM</div>
+                        <div class="job">Web Carquin</div>
+                    </div>
+                    <a href="Login.html">
+                    <i class='bx bx-log-out'></i>
+                </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar-activation-area"></div>
+
+</div>
+
+    <section class="home-section">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+        </div>
+    </section>
+    <div class="container">
+        <h1>Gmail CTM Carquin</h1>
+        <p>Administra tu cuenta de Gmail con facilidad</p>
+
+        <div id="buttons-container">
+            <button id="authorize_button" onclick="handleAuthClick()">Autorizar</button>
+            <button id="signout_button" style="visibility: hidden;" onclick="handleSignoutClick()">Cerrar Sesión</button>
+        </div>
+
+        <!-- Agregar campos de entrada para la fecha -->
+        <div id="filter-container">
+            <div>
+                <label for="selected-date">Seleccionar fecha:</label>
+                <input type="date" id="selected-date">
+            </div>
+            <button onclick="filterEmailsByDate()" style="padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Filtrar por fecha</button>
+        </div>
+
+        <ul class="email-list" id="email-list"></ul>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="previousPage()" style="padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Anterior</button>
+            <span id="pagination-info"></span>
+            <button onclick="nextPage()" style="padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Siguiente</button>
+        </div>
+    </div>
+
+    <div class="container" style="display: none;">
+        <h1>Contenido del Correo Electrónico</h1>
+        <button onclick="goBackToList()" style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+            &#x2B05; <!-- Símbolo Unicode de flecha hacia atrás -->
+        </button>
+        <div class="email-content-container"> <!-- Div de contenedor para el contenido del correo -->
+            <div class="email-content"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Variables globales
+        const CLIENT_ID = '720763965931-ab6d859nr85p1rmi66q44i9oh9727bqi.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyBZS32bMJbWFN460QeBwZmmwbA0gwpc1wA';
+        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest';
+        const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
+        const TOKEN_KEY = 'gmail_api_token';
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+        let currentPageNumber = 1;
+        let nextPageToken = null;
+        let totalEmails = 0;
+        let emailsPerPage = 10;
+        let formattedMessages = [];
+        let currentSearchQuery = ''; // Variable para almacenar la consulta de búsqueda actual
+
+        // Funciones de autorización y desautorización
+        function gapiLoaded() {
+            gapi.load('client', initializeGapiClient);
+        }
+
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                callback: '',
+            });
+            gisInited = true;
+            maybeEnableButtons();
+        }
+
+        function initializeGapiClient() {
+            gapi.client.init({
+                apiKey: API_KEY,
+                discoveryDocs: [DISCOVERY_DOC],
+            }).then(() => {
+                gapiInited = true;
+                maybeEnableButtons();
+                // Intentar obtener el token almacenado al cargar la página
+                const storedToken = localStorage.getItem(TOKEN_KEY);
+                if (storedToken) {
+                    gapi.client.setToken(JSON.parse(storedToken));
+                    document.getElementById('authorize_button').style.visibility = 'hidden';
+                    document.getElementById('signout_button').style.visibility = 'visible';
+                    getTotalEmails();
+                }
+            });
+        }
+
+        function maybeEnableButtons() {
+            if (gapiInited && gisInited) {
+                document.getElementById('authorize_button').style.visibility = 'visible';
+            }
+        }
+
+        async function handleAuthClick() {
+            tokenClient.callback = async (resp) => {
+                if (resp.error !== undefined) {
+                    throw (resp);
+                }
+                localStorage.setItem(TOKEN_KEY, JSON.stringify(gapi.client.getToken()));
+                document.getElementById('signout_button').style.visibility = 'visible';
+                document.getElementById('authorize_button').innerText = 'Refrescar';
+                getTotalEmails();
+
+                // Recargar la página después de autorizar
+                location.reload();
+            };
+
+            if (gapi.client.getToken() === null) {
+                tokenClient.requestAccessToken({ prompt: 'consent' });
+            } else {
+                tokenClient.requestAccessToken({ prompt: '' });
+            }
+        }
+
+        function handleSignoutClick() {
+            localStorage.removeItem(TOKEN_KEY);
+            const token = gapi.client.getToken();
+            if (token !== null) {
+                google.accounts.oauth2.revoke(token.access_token);
+                gapi.client.setToken('');
+                document.getElementById('authorize_button').innerText = 'Autorizar';
+                document.getElementById('signout_button').style.visibility = 'hidden';
+            }
+            // Recargar la página después de cerrar sesión
+            location.reload();
+        }
+
+        async function getTotalEmails() {
+            try {
+                const response = await gapi.client.gmail.users.getProfile({
+                    'userId': 'me',
+                });
+
+                totalEmails = response.result.messagesTotal;
+                updatePaginationInfo();
+                listEmails();
+            } catch (err) {
+                console.error('Error fetching total emails:', err);
+            }
+        }
+
+        // Nueva función para obtener detalles del correo electrónico
+        async function getEmailDetails(messageId) {
+            try {
+                const response = await gapi.client.gmail.users.messages.get({
+                    'userId': 'me',
+                    'id': messageId,
+                });
+                const email = response.result;
+                const headers = email.payload.headers || [];
+                let sender = '';
+                let subject = '';
+                let body = '';
+                let date = '';
+                for (const header of headers) {
+                    if (header.name === 'From') {
+                        sender = header.value;
+                    } else if (header.name === 'Subject') {
+                        subject = header.value;
+                    } else if (header.name === 'Date') {
+                        date = formatDate(header.value);
+                    }
+                }
+                if (email.payload.parts && email.payload.parts.length > 0) {
+                    body = getEmailBody(email.payload.parts);
+                } else {
+                    body = decodeURIComponent(escape(atob(email.payload.body.data.replace(/-/g, '+').replace(/_/g, '/'))));
+                }
+                return { sender, subject, body, date };
+            } catch (error) {
+                console.error('Error fetching email details:', error);
+                return { sender: 'Desconocido', subject: 'Desconocido', body: 'Error al obtener el contenido del correo electrónico', date: '' };
+            }
+        }
+
+        // Función para formatear la fecha y hora
+        function formatDate(dateTimeString) {
+            const date = new Date(dateTimeString);
+            return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric' });
+        }
+
+        // Función para obtener el cuerpo del correo electrónico
+        function getEmailBody(parts) {
+            for (const part of parts) {
+                if (part.mimeType === 'text/html') {
+                    return decodeURIComponent(escape(atob(part.body.data.replace(/-/g, '+').replace(/_/g, '/'))));
+                } else if (part.parts) {
+                    return getEmailBody(part.parts);
+                }
+            }
+            return '';
+        }
+
+        function displayEmailList(messages) {
+            const emailList = document.getElementById('email-list');
+            emailList.innerHTML = '';
+
+            messages.forEach(message => {
+                const emailItem = document.createElement('li');
+                emailItem.classList.add('email-item');
+                emailItem.innerHTML = `
+                    <div>
+                        <h3>${message.sender}</h3>
+                        <p>${message.subject}</p>
+                    </div>
+                    <p class="date">${message.date}</p>
+                `;
+                emailItem.addEventListener('click', () => {
+                    showEmailContent(message.id);
+                });
+                emailList.appendChild(emailItem);
+            });
+        }
+
+        async function listEmails(startDate, searchInput = '') { // Modificar la función para aceptar parámetros de fecha y búsqueda
+            try {
+                let query = {
+                    'userId': 'me',
+                    'labelIds': ['INBOX'],
+                    'maxResults': emailsPerPage,
+                    'pageToken': nextPageToken
+                };
+
+                if (startDate) {
+                    const endDate = new Date(startDate);
+                    endDate.setDate(endDate.getDate() + 1); // Incrementar la fecha en 1 día
+                    query.q = `after:${startDate} before:${endDate.toISOString().slice(0, 10)}`;
+                }
+
+                if (searchInput !== '') {
+                    currentSearchQuery = searchInput; // Almacenar la consulta de búsqueda actual
+                    query.q = searchInput; // Establecer la consulta de búsqueda si se proporciona un término de búsqueda
+                } else {
+                    currentSearchQuery = ''; // Si no hay término de búsqueda, establecer la consulta actual en vacío
+                }
+
+                const response = await gapi.client.gmail.users.messages.list(query);
+
+                const messages = response.result.messages || [];
+                nextPageToken = response.result.nextPageToken; // Guardar el token para la siguiente página
+
+                formattedMessages = await Promise.all(messages.map(async message => {
+                    const emailDetails = await getEmailDetails(message.id);
+                    return {
+                        id: message.id,
+                        sender: emailDetails.sender,
+                        subject: emailDetails.subject,
+                        body: emailDetails.body,
+                        date: emailDetails.date
+                    };
+                }));
+
+                // Ordenar la lista de correos por fecha y hora
+                formattedMessages.sort((a, b) => {
+                    return new Date(b.date) - new Date(a.date);
+                });
+
+                displayEmailList(formattedMessages);
+
+                // Actualizar información de paginación
+                updatePaginationInfo();
+            } catch (err) {
+                console.error('Error listing emails:', err);
+            }
+        }
+
+        async function showEmailContent(messageId) {
+            try {
+                const emailDetails = await getEmailDetails(messageId);
+                const emailContent = `
+                    <p><strong>De:</strong> ${emailDetails.sender}</p>
+                    <p><strong>Asunto:</strong> ${emailDetails.subject}</p>
+                    <p><strong>Fecha:</strong> ${emailDetails.date}</p>
+                    <div class="email-body">${emailDetails.body}</div>
+                `;
+                document.querySelector('.email-content').innerHTML = emailContent;
+                document.querySelector('.container').style.display = 'none';
+                document.querySelector('.container:last-of-type').style.display = 'block';
+                // Restablecer estilos al mostrar el contenido del correo
+                document.querySelectorAll('.email-content a').forEach(link => link.style.display = 'inline-block');
+                document.querySelectorAll('.email-content img').forEach(img => img.style.display = 'block');
+                // Desplazarse hacia arriba al mostrar el contenido del correo
+                document.querySelector('.container:last-of-type').scrollIntoView({ behavior: 'smooth' });
+            } catch (err) {
+                console.error('Error fetching email content:', err);
+                document.querySelector('.email-content').innerHTML = 'Error al obtener el contenido del correo electrónico';
+            }
+        }
+
+        function goBackToList() {
+            document.querySelector('.container:last-of-type').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+            // Limpiar el contenido del correo electrónico al volver a la lista de correos
+            document.querySelector('.email-content').innerHTML = '';
+        }
+
+        function previousPage() {
+            if (currentPageNumber > 1) { // Verificar si currentPageNumber es mayor que 1
+                currentPageNumber--;
+                nextPageToken = null; // Establecer nextPageToken en null para obtener los correos más recientes
+                listEmails(null, currentSearchQuery); // Utilizar la consulta de búsqueda actual
+                scrollToTop(); // Llamar a la función de desplazamiento hacia arriba
+            }
+        }
+        
+        function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+        function nextPage() {
+            if (currentPageNumber) {
+                currentPageNumber++;
+                listEmails(null, currentSearchQuery); // Utilizar la consulta de búsqueda actual
+                scrollToTop(); // Llamar a la función de desplazamiento hacia arriba
+            }
+        }
+
+        function updatePaginationInfo() {
+            const paginationInfo = document.getElementById('pagination-info');
+            const firstEmailIndex = (currentPageNumber - 1) * emailsPerPage + 1;
+            const lastEmailIndex = Math.min(currentPageNumber * emailsPerPage, totalEmails);
+            paginationInfo.innerHTML = `Correos del ${firstEmailIndex} al ${lastEmailIndex} de un total de ${totalEmails}.`;
+        }
+
+        function filterEmailsBySearch() {
+    const searchInput = document.querySelector('.search-box input').value.trim();
+    if (searchInput !== '') {
+        listEmails(null, searchInput);
+    } else {
+        listEmails(); // Si no hay término de búsqueda, listar todos los correos
+    }
+}
+
+
+
+       // funcionalidad de nabvar
+        let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+
+//funcion para que la navbar se habar con el mouse
+  document.addEventListener("DOMContentLoaded", function() {
+    const sidebarContainer = document.querySelector('.sidebar-container');
+    const sidebar = document.querySelector('.sidebar');
+
+    sidebarContainer.addEventListener('mouseenter', function() {
+        sidebar.classList.remove('close');
+    });
+
+    sidebarContainer.addEventListener('mouseleave', function() {
+        sidebar.classList.add('close');
+    });
+});
+
+
+
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</body>
+</html>

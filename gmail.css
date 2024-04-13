@@ -1,0 +1,462 @@
+/* Estilos CSS aquí */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    overflow-x: hidden; /* Para evitar el desplazamiento horizontal */
+}
+
+
+/* Estilos restantes */
+.container {
+    max-width: 800px;
+    margin: 10px auto 10px; /* Cambiar el margen superior a 10px */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+h1 {
+    text-align: center;
+    color: #007bff;
+}
+
+p {
+    text-align: center;
+    color: #6c757d;
+}
+
+#buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#authorize_button,
+#signout_button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#authorize_button:hover,
+#signout_button:hover {
+    background-color: #0056b3;
+}
+
+.email-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.email-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    display: flex; 
+    align-items: center;
+}
+
+.email-item:hover {
+    background-color: #e9ecef;
+}
+
+.email-item h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.email-item p {
+    margin: 5px 0 0;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.email-item .date {
+    margin-left: auto; 
+    color: #888; 
+    font-size: 14px; 
+    font-weight: bold; 
+    min-width: 120px; 
+    text-align: right; 
+    padding-right: 20px;
+}
+
+pre {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+pre::-webkit-scrollbar {
+    width: 8px;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 4px;
+}
+/* Estilos específicos para el contenido del correo */
+.email-body {
+    margin-top: 10px;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; /* Centrar elementos */
+}
+
+.email-body p {
+    margin: 0;
+    padding: 0;
+    flex: 1 1 100%;
+    color: #333;
+    text-align: center; /* Centrar el texto */
+}
+
+.email-body img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+    margin: 10px auto;
+    flex: 0 0 auto; 
+}
+
+.email-body a {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-block; 
+    flex: 0 0 auto; 
+}
+
+.email-body a:hover {
+    text-decoration: underline;
+}
+/* Navbar */
+/* Google Fonts Import Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background: #11101d;
+  z-index: 100;
+  transition: all 0.5s ease;
+}
+.sidebar.close{
+  width: 78px;
+}
+.sidebar .logo-details{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.sidebar .logo-details i{
+  font-size: 30px;
+  color: #fff;
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+}
+.sidebar .logo-details .logo_name{
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s ease;
+  transition-delay: 0.1s;
+}
+.sidebar.close .logo-details .logo_name{
+  transition-delay: 0s;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links{
+  height: 100%;
+  padding: 30px 0 150px 0;
+  overflow: auto;
+}
+.sidebar.close .nav-links{
+  overflow: visible;
+}
+.sidebar .nav-links::-webkit-scrollbar{
+  display: none;
+}
+.sidebar .nav-links li{
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+.sidebar .nav-links li:hover{
+  background: #1d1b31;
+}
+.sidebar .nav-links li .iocn-link{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar.close .nav-links li .iocn-link{
+  display: block
+}
+.sidebar .nav-links li i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sidebar .nav-links li.showMenu i.arrow{
+  transform: rotate(-180deg);
+}
+.sidebar.close .nav-links i.arrow{
+  display: none;
+}
+.sidebar .nav-links li a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.sidebar .nav-links li a .link_name{
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  transition: all 0.4s ease;
+}
+.sidebar.close .nav-links li a .link_name{
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li .sub-menu{
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: #1d1b31;
+  display: none;
+}
+.sidebar .nav-links li.showMenu .sub-menu{
+  display: block;
+}
+.sidebar .nav-links li .sub-menu a{
+  color: #fff;
+  font-size: 15px;
+  padding: 5px 0;
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+.sidebar .nav-links li .sub-menu a:hover{
+  opacity: 1;
+}
+.sidebar.close .nav-links li .sub-menu{
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar.close .nav-links li:hover .sub-menu{
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+.sidebar .nav-links li .sub-menu .link_name{
+  display: none;
+}
+.sidebar.close .nav-links li .sub-menu .link_name{
+  font-size: 18px;
+  opacity: 1;
+  display: block;
+}
+.sidebar .nav-links li .sub-menu.blank{
+  opacity: 1;
+  pointer-events: auto;
+  padding: 3px 20px 6px 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li:hover .sub-menu.blank{
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sidebar .profile-details{
+  position: fixed;
+  bottom: 0;
+  width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1d1b31;
+  padding: 12px 0;
+  transition: all 0.5s ease;
+}
+.sidebar.close .profile-details{
+  background: none;
+}
+.sidebar.close .profile-details{
+  width: 78px;
+}
+.sidebar .profile-details .profile-content{
+  display: flex;
+  align-items: center;
+}
+.sidebar .profile-details img{
+  height: 52px;
+  width: 52px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 0 14px 0 12px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+}
+.sidebar.close .profile-details img{
+  padding: 10px;
+}
+.sidebar .profile-details .profile_name,
+.sidebar .profile-details .job{
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.sidebar.close .profile-details i,
+.sidebar.close .profile-details .profile_name,
+.sidebar.close .profile-details .job{
+  display: none;
+}
+.sidebar .profile-details .job{
+  font-size: 12px;
+}
+.home-section {
+    position: fixed; /* Cambiamos el posicionamiento a fijo */
+    top: 0; /* Lo colocamos en la parte superior */
+    left: 0; /* Lo colocamos en la parte izquierda */
+    z-index: 99; /* Aseguramos que esté por debajo de la barra lateral */
+  }
+  
+.sidebar.close ~ .home-section{
+  left: 78px;
+  width: calc(100% - 78px);
+}
+.home-section .home-content{
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.home-section .home-content .bx-menu,
+.home-section .home-content .text{
+  color: #11101d;
+  font-size: 35px;
+}
+.home-section .home-content .bx-menu{
+  margin: 0 15px;
+  cursor: pointer;
+}
+.home-section .home-content .text{
+  font-size: 26px;
+  font-weight: 600;
+}
+@media (max-width: 400px) {
+  .sidebar.close .nav-links li .sub-menu{
+    display: none;
+  }
+  .sidebar{
+    width: 78px;
+  }
+  .sidebar.close{
+    width: 0;
+  }
+  .home-section{
+    left: 78px;
+    width: calc(100% - 78px);
+    z-index: 100;
+  }
+  .sidebar.close ~ .home-section{
+    width: 100%;
+    left: 0;
+  }
+}
+.logo-details img {
+  width: 30px; /* Tamaño deseado del icono */
+  height: 30px;
+  object-fit: cover; /* Ajustar la imagen dentro del contenedor */
+  border-radius: 50%; /* Ajustar el radio de borde para que la imagen se vea como un círculo */
+  margin-right: 0px; /* Ajustar el margen entre la imagen y el texto */
+  left: 10px;
+}
+.home-content {
+    /* Ajustamos el alto y el ancho del contenedor del ícono */
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Estilos para el ícono */
+.home-content .bx-menu {
+    font-size: 35px;
+    color: #11101d;
+    cursor: pointer;
+  }
+/* Agrega este estilo al final de tu CSS */
+
+.sidebar .search-box {
+    position: relative;
+    display: flex; /* Utilizamos flexbox para alinear elementos */
+    align-items: center; /* Centramos verticalmente los elementos */
+  }
+  
+  .sidebar .search-box input {
+    width: 65%; /* El input ocupa todo el espacio disponible */
+    padding: 8px; /* Ajustamos el relleno según sea necesario */
+    border: none;
+    opacity: 1;
+    transition: width 0.4s ease, padding 0.4s ease, opacity 0.4s ease;
+  }
+  
+  .sidebar.close .search-box input {
+    width: 0;
+    padding: 0;
+    border: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .sidebar .search-box .icon {
+    /* Ajustamos el icono */
+    color: #fff;
+    font-size: 20px;
+    transition: all 0.4s ease;
+  }
+  
+  
+  
+  
